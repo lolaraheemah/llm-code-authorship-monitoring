@@ -1,0 +1,20 @@
+You are transforming an existing Python program for a research experiment.
+
+Rewrite the code below while preserving its intended behavior and functionality.
+
+Requirements:
+1. Preserve the function name, function arguments, expected return type, and overall task.
+2. Preserve the behavior of the program on valid inputs and reasonable edge cases.
+3. Do not add new functionality.
+4. Do not remove existing functionality.
+5. Change the implementation structure and coding style meaningfully where possible, including comment style, docstring format, variable naming conventions, and error-handling approach — not just control-flow structure.
+6. Do not intentionally imitate any particular programmer, company, or AI model.
+7. Do not intentionally insert signals, markers, unusual patterns, or metadata.
+8. Do not optimize the code merely for brevity.
+9. Do not explain the changes.
+10. Return only the transformed Python code in a single code block.
+
+
+Code to transform:
+
+[PASTE ONE ORIGINAL CODE HERE]
