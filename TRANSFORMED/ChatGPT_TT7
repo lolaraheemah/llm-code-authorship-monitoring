@@ -1,0 +1,37 @@
+def binary_search(array, search_value):
+    """
+    Locate the position of search_value in a sorted array using binary search.
+
+    Parameters
+    ----------
+    array : list
+        A sorted list of comparable elements.
+    search_value : any
+        The value to locate in the array.
+
+    Returns
+    -------
+    int
+        Index of search_value if found, otherwise -1.
+    """
+    lower_bound = 0
+    upper_bound = len(array) - 1
+
+    while lower_bound <= upper_bound:
+        middle_index = lower_bound + (upper_bound - lower_bound) // 2
+
+        if array[middle_index] == search_value:
+            return middle_index
+        elif array[middle_index] < search_value:
+            lower_bound = middle_index + 1
+        else:
+            upper_bound = middle_index - 1
+
+    return -1
+
+# Demonstration
+sample_data = [1, 3, 5, 7, 9, 11, 13]
+search_target = 7
+
+index = binary_search(sample_data, search_target)
+print(index)  # Expected output: 3

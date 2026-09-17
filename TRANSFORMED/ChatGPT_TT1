@@ -1,0 +1,18 @@
+def reverse_string(input_str: str) -> str:
+    """
+    Reverses the order of characters in the provided string.
+
+    Args:
+        input_str: The string to be reversed.
+
+    Returns:
+        The reversed string.
+    """
+    reversed_chars = []
+    for char in input_str:
+        reversed_chars.insert(0, char)
+    return "".join(reversed_chars)
+
+# Example usage
+sample_text = "Hello, World!"
+print(reverse_string(sample_text))  # !dlroW ,olleH

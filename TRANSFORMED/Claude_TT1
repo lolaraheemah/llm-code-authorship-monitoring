@@ -1,0 +1,33 @@
+def reverse_string(input_str: str) -> str:
+    """Reverse the given string.
+
+    Parameters
+    ----------
+    input_str : str
+        The input string
+
+    Returns
+    -------
+    str
+        The reversed string
+
+    Raises
+    ------
+    TypeError
+        If input_str is not a string
+    """
+    # Validate input type
+    if type(input_str) is not str:
+        raise TypeError("Input must be a string")
+
+    # Reverse string using a loop
+    result = ''
+    for char in input_str:
+        result = char + result
+    return result
+
+if __name__ == "__main__":
+    # Test cases
+    test_strings = ["hello", "", "a", "Madam, I'm Adam", "12345", "  spaced  "]
+    for test in test_strings:
+        print(f"{test!r} -> {reverse_string(test)!r}")

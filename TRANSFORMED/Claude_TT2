@@ -1,0 +1,21 @@
+def is_palindrome(s: str) -> bool:
+    """Check if a string is a palindrome, ignoring case, spaces, and punctuation."""
+    if not isinstance(s, str):
+        raise TypeError("Expected a string input")
+
+    normalized = ''.join(c.lower() for c in s if c.isalnum())
+    return normalized == normalized[::-1]
+
+if __name__ == "__main__":
+    # Test cases for palindrome verification
+    test_cases = (
+        "A man, a plan, a canal: Panama",
+        "Was it a car or a cat I saw?",
+        "Hello, World!",
+        "",
+        "12321",
+        "No lemon, no melon"
+    )
+
+    for case in test_cases:
+        print(f"{case!r} -> {is_palindrome(case)}")

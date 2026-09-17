@@ -1,0 +1,72 @@
+from math import sqrt
+from collections import Counter
+
+def compute_statistics(data):
+    """Compute basic descriptive statistics for a list of numbers.
+
+    Parameters
+    ----------
+    data : list of int or float
+        Input numeric data.
+
+    Returns
+    -------
+    dict
+        Dictionary containing count, sum, mean, median, mode, variance,
+        standard deviation, min, max, and range.
+
+    Raises
+    ------
+    ValueError
+        If data is empty or contains non-numeric values.
+    """
+    if not data:
+        raise ValueError("Input data must not be empty.")
+
+    non_numeric = next(
+        (x for x in data if not isinstance(x, (int, float)) or isinstance(x, bool)),
+        None
+    )
+    if non_numeric is not None:
+        raise ValueError(f"Non-numeric value found: {non_numeric!r}")
+
+    data_length = len(data)
+    data_sum = sum(data)
+    mean_value = data_sum / data_length
+
+    sorted_values = sorted(data)
+    mid_index = data_length // 2
+    if data_length % 2 == 0:
+        median = (sorted_values[mid_index - 1] + sorted_values[mid_index]) / 2
+    else:
+        median = sorted_values[mid_index]
+
+    value_counts = Counter(data)
+    highest_count = max(value_counts.values())
+    mode_values = sorted(k for k, v in value_counts.items() if v == highest_count)
+    mode = mode_values[0] if len(mode_values) == 1 else mode_values
+
+    variance_value = sum((x - mean_value) ** 2 for x in data) / data_length
+    std_deviation = sqrt(variance_value)
+
+    min_value = min(data)
+    max_value = max(data)
+    range_value = max_value - min_value
+
+    return {
+        "count": data_length,
+        "sum": data_sum,
+        "mean": mean_value,
+        "median": median,
+        "mode": mode,
+        "variance": variance_value,
+        "std_dev": std_deviation,
+        "min": min_value,
+        "max": max_value,
+        "range": range_value,
+    }
+
+if __name__ == "__main__":
+    sample_data = [4, 8, 6, 5, 3, 8, 9, 8, 1, 7]
+    stats = compute_statistics(sample_data)
+    print("\n".join(f"{key}: {value}" for key, value in stats.items()))

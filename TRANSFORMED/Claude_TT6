@@ -1,0 +1,34 @@
+def second_largest(num_list):
+    """Return the second largest unique value in a list of numbers.
+
+    Args:
+        num_list: List of numbers to search.
+
+    Returns:
+        The second largest unique number in the list.
+
+    Raises:
+        ValueError: If the input contains fewer than two distinct numbers.
+    """
+    unique_vals = set(num_list)
+    if len(unique_vals) < 2:
+        raise ValueError("Input must contain at least two distinct numbers.")
+
+    max_val = second_max = float('-inf')
+    for val in unique_vals:
+        if val > max_val:
+            second_max = max_val
+            max_val = val
+        elif val > second_max:
+            second_max = val
+
+    return second_max
+
+if __name__ == "__main__":
+    test_data = [4, 1, 7, 7, 3, 9, 9, 2]
+    print("Second largest:", second_largest(test_data))  # Expected: 7
+
+    try:
+        second_largest([5])
+    except ValueError as e:
+        print("Error:", e)

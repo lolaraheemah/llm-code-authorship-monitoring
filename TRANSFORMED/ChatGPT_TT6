@@ -1,0 +1,22 @@
+def second_largest(numbers):
+    """Return the second largest distinct number in a list.
+
+    Args:
+        numbers: List of numbers to process.
+
+    Returns:
+        int or float: The second largest distinct number.
+
+    Raises:
+        ValueError: If fewer than two distinct numbers exist.
+    """
+    distinct_values = sorted(set(numbers), reverse=True)
+
+    if len(distinct_values) < 2:
+        raise ValueError("At least two distinct numbers are required.")
+
+    return distinct_values[1]
+
+# Example
+numbers = [10, 5, 8, 10, 3, 8]
+print(second_largest(numbers))  # 8

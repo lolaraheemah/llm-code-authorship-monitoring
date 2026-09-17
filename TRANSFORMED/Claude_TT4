@@ -1,0 +1,19 @@
+def remove_duplicates(iterable):
+    """
+    Removes duplicate elements from an iterable, preserving the order of first occurrences.
+
+    :param iterable: An iterable of hashable elements
+    :return: List with duplicates removed, in order of first appearance
+    """
+    if iterable is None:
+        return []
+    return list(dict.fromkeys(iterable))
+
+if __name__ == "__main__":
+    # Example usage
+    test_data = [1, 2, 2, 3, 1, 4, 5, 4, "a", "a", None, None]
+    print(remove_duplicates(test_data))  # Output: [1, 2, 3, 4, 5, 'a', None]
+
+    print(remove_duplicates([]))  # Output: []
+
+    print(remove_duplicates(None))  # Output: []

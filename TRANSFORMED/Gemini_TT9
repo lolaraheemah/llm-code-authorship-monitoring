@@ -1,0 +1,71 @@
+from collections import Counter
+
+def calculate_statistics(data: list[float]) -> dict:
+    """
+    Calculate basic descriptive statistics for a list of numerical values.
+
+    Parameters
+    ----------
+    data : list[float]
+        A list of numerical values.
+
+    Returns
+    -------
+    dict
+        A dictionary containing the mean, median, mode, sample variance,
+        and sample standard deviation. Returns an empty dictionary if data is empty.
+    """
+    if not data:
+        return {}
+
+    num_points = len(data)
+
+    # Calculate mean
+    mean_value = sum(data) / num_points
+
+    # Calculate median
+    ordered_data = sorted(data)
+    middle_index = num_points // 2
+    if num_points % 2 == 0:
+        median_value = (ordered_data[middle_index - 1] + ordered_data[middle_index]) / 2.0
+    else:
+        median_value = float(ordered_data[middle_index])
+
+    # Calculate mode
+    counts = Counter(data)
+    max_count = max(counts.values())
+    if max_count == 1 and num_points > 1:
+        mode_values = []
+    else:
+        mode_values = [key for key, count in counts.items() if count == max_count]
+
+    # Calculate sample variance and standard deviation
+    if num_points > 1:
+        sample_variance = sum((x - mean_value) ** 2 for x in data) / (num_points - 1)
+        sample_std_dev = sample_variance ** 0.5
+    else:
+        sample_variance = 0.0
+        sample_std_dev = 0.0
+
+    return {
+        'mean': mean_value,
+        'median': median_value,
+        'mode': mode_values,
+        'sample_variance': sample_variance,
+        'sample_std_dev': sample_std_dev
+    }
+
+if __name__ == "__main__":
+    sample_data = [10.5, 12.0, 15.5, 10.5, 18.0, 22.5, 12.0, 10.5]
+    statistics_result = calculate_statistics(sample_data)
+
+    print("Dataset:", sample_data)
+    print("Statistics:")
+    for key, value in statistics_result.items():
+        if isinstance(value, float):
+            print(f"  {key.replace('_', ' ').title()}: {value:.4f}")
+        else:
+            print(f"  {key.replace('_', ' ').title()}: {value}")
+
+    print("\nEmpty dataset stats:", calculate_statistics([]))
+    print("Single element stats:", calculate_statistics([42]))

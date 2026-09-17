@@ -1,0 +1,27 @@
+def validate_password(password):
+    """Assess whether a password meets the required security criteria.
+
+    The password must be a string with a minimum length of 8 characters,
+    and must include at least one uppercase letter, one lowercase letter,
+    one numeric digit, and one special character.
+    """
+    if not isinstance(password, str) or len(password) < 8:
+        return False
+
+    has_uppercase = has_lowercase = has_numeric = has_symbol = False
+
+    for character in password:
+        if character.isupper():
+            has_uppercase = True
+        if character.islower():
+            has_lowercase = True
+        if character.isdigit():
+            has_numeric = True
+        if not character.isalnum():
+            has_symbol = True
+
+    return has_uppercase and has_lowercase and has_numeric and has_symbol
+
+# Example
+password = "Secure@123"
+print(validate_password(password))  # True

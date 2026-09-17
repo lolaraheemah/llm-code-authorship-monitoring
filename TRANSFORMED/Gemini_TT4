@@ -1,0 +1,43 @@
+def remove_duplicates(iterable):
+    '''
+    Removes duplicate elements from an iterable while maintaining original order.
+    Handles both hashable and unhashable types appropriately.
+    '''
+    if not iterable:
+        return []
+
+    hashable_set = set()
+    unhashable_list = []
+    output = []
+
+    for value in iterable:
+        try:
+            # Check if hashable and not seen
+            if value not in hashable_set:
+                hashable_set.add(value)
+                output.append(value)
+        except TypeError:
+            # Handle unhashable types
+            if value not in unhashable_list:
+                unhashable_list.append(value)
+                output.append(value)
+
+    return output
+
+if __name__ == "__main__":
+    # Example with hashable types
+    test_numbers = [1, 2, 3, 2, 4, 1, 5, "apple", "apple"]
+    print("Original:", test_numbers)
+    print("Deduplicated:", remove_duplicates(test_numbers))
+    print("-" * 40)
+
+    # Example with unhashable types
+    test_complex = [[1, 2], {"a": 1}, [1, 2], [3, 4], {"a": 1}]
+    print("Original:", test_complex)
+    print("Deduplicated:", remove_duplicates(test_complex))
+    print("-" * 40)
+
+    # Edge case examples
+    print("Empty list:", remove_duplicates([]))
+    print("String deduplication:", remove_duplicates("abracadabra"))
+    print("None input:", remove_duplicates(None))

@@ -1,0 +1,54 @@
+def binary_search(arr: list, target: int | float) -> int:
+    """
+    Search for a target value in a sorted list using binary search.
+
+    Parameters
+    ----------
+    arr : list
+        Sorted list of comparable elements (e.g., numbers, strings).
+    target : int | float
+        Value to locate in the list.
+
+    Returns
+    -------
+    int
+        Index of the target if found, otherwise -1.
+    """
+    if len(arr) == 0:
+        return -1
+
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        midpoint = (low + high) // 2
+
+        if arr[midpoint] == target:
+            return midpoint
+        if arr[midpoint] < target:
+            low = midpoint + 1
+        else:
+            high = midpoint - 1
+
+    return -1
+
+# Example usage
+if __name__ == "__main__":
+    # Sorted list for testing
+    test_list = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+
+    # Case 1: Target present
+    value_1 = 23
+    index_1 = binary_search(test_list, value_1)
+    print(f"Target {value_1} found at index: {index_1}")
+
+    # Case 2: Target absent
+    value_2 = 10
+    index_2 = binary_search(test_list, value_2)
+    print(f"Target {value_2} found at index: {index_2}")
+
+    # Case 3: Empty list
+    empty_test = []
+    value_3 = 5
+    index_3 = binary_search(empty_test, value_3)
+    print(f"Target {value_3} in empty list found at index: {index_3}")

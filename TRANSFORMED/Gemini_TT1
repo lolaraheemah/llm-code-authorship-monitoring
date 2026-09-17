@@ -1,0 +1,27 @@
+def reverse_string(s: str) -> str:
+    """Reverse the characters in the provided string.
+
+    Args:
+        s: The input string to be reversed.
+
+    Returns:
+        The reversed string.
+
+    Raises:
+        TypeError: If the input is not a string.
+    """
+    if not isinstance(s, str):
+        raise TypeError("Input must be a string type")
+    return s[::-1]
+
+if __name__ == "__main__":
+    # Example demonstration
+    input_str = "Hello, World!"
+    output_str = reverse_string(input_str)
+
+    print("Original: '{}'".format(input_str))
+    print("Reversed: '{}'".format(output_str))
+
+    # Edge case demonstrations
+    print("Empty string: '{}'".format(reverse_string("")))
+    print("Single character: '{}'".format(reverse_string("A")))

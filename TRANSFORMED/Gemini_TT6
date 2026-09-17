@@ -1,0 +1,42 @@
+def second_largest(num_list):
+    """
+    Identify the second largest distinct value in a sequence of numbers.
+
+    Parameters
+    ----------
+    num_list : list
+        Input list containing numerical values.
+
+    Returns
+    -------
+    int or float or None
+        The second largest unique number, or None if fewer than two unique numbers.
+    """
+    if not num_list or len(num_list) < 2:
+        return None
+
+    max_val = second_max = None
+
+    for value in num_list:
+        if max_val is None or value > max_val:
+            second_max, max_val = max_val, value
+        elif value != max_val:
+            if second_max is None or value > second_max:
+                second_max = value
+
+    return second_max
+
+# Demonstration
+if __name__ == '__main__':
+    sample = [10, 5, 8, 20, 15, 20]
+    outcome = second_largest(sample)
+    print(f"Second largest in {sample}: {outcome}")
+
+    # Edge case: empty
+    print(f"Second largest in []: {second_largest([])}")
+
+    # Edge case: single element
+    print(f"Second largest in [5]: {second_largest([5])}")
+
+    # Edge case: all identical
+    print(f"Second largest in [7, 7, 7, 7]: {second_largest([7, 7, 7, 7])}")

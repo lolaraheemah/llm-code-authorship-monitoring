@@ -1,0 +1,28 @@
+def is_prime(number: int) -> bool:
+    """
+    Determines if a given integer is a prime number.
+
+    Args:
+        number: The integer to evaluate for primality.
+
+    Returns:
+        True if the number is prime, False otherwise.
+    """
+    if number < 2:
+        return False
+    if number == 2:
+        return True
+    if number % 2 == 0:
+        return False
+
+    divisor = 3
+    while divisor * divisor <= number:
+        if number % divisor == 0:
+            return False
+        divisor += 2
+
+    return True
+
+# Test case
+test_value = 29
+print(is_prime(test_value))  # Expected output: True

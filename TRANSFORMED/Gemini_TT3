@@ -1,0 +1,52 @@
+import re
+from typing import Dict
+
+def get_word_frequency(input_text: str) -> Dict[str, int]:
+    """
+    Calculate the frequency of each word in the provided text.
+
+    Parameters
+    ----------
+    input_text : str
+        The text to analyze for word frequencies.
+
+    Returns
+    -------
+    Dict[str, int]
+        A dictionary mapping each word to its frequency count.
+    """
+    # Early return for invalid or empty input
+    if not isinstance(input_text, str):
+        return {}
+    if not input_text.strip():
+        return {}
+
+    word_matcher = re.compile(r'\b\w+\b')
+    tokens = word_matcher.findall(input_text.lower())
+
+    freq_dict = {}
+    for token in tokens:
+        freq_dict[token] = freq_dict.get(token, 0) + 1
+
+    return freq_dict
+
+if __name__ == "__main__":
+    demo_text = "Hello world! This is a test. Hello, this test is only a test."
+
+    result = get_word_frequency(demo_text)
+
+    print("Sample Text:")
+    print(demo_text)
+    print("\nWord Frequencies:")
+
+    ordered_result = sorted(
+        result.items(),
+        key=lambda x: (-x[1], x[0])
+    )
+
+    for word, count in ordered_result:
+        print(f"{word}: {count}")
+
+    print("\nEdge Case (Empty String):", get_word_frequency(""))
+    print("Edge Case (Punctuation Only):", get_word_frequency("!!! ??? ,,, ..."))
+    print("Edge Case (None Type):", get_word_frequency(None))

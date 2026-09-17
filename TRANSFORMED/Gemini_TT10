@@ -1,0 +1,55 @@
+def validate_password(password: str) -> bool:
+    """Check if a password satisfies all security requirements.
+
+    A valid password must:
+        - Be at least 8 characters long
+        - Contain one uppercase letter
+        - Contain one lowercase letter
+        - Contain one digit
+        - Contain one special character (non-alphanumeric, non-whitespace)
+
+    Args:
+        password: The password string to validate.
+
+    Returns:
+        bool: True if the password is valid, otherwise False.
+    """
+    if type(password) is not str:
+        return False
+
+    length_valid = len(password) >= 8
+    contains_upper = contains_lower = contains_digit = contains_special = False
+
+    for char in password:
+        if char.isupper():
+            contains_upper = True
+        if char.islower():
+            contains_lower = True
+        if char.isdigit():
+            contains_digit = True
+        if not char.isalnum() and not char.isspace():
+            contains_special = True
+
+    return (
+        length_valid
+        and contains_upper
+        and contains_lower
+        and contains_digit
+        and contains_special
+    )
+
+if __name__ == "__main__":
+    test_samples = [
+        "Secure@Pass123",  # Valid
+        "short1!",          # Too short
+        "NoSpecialChar1",   # Missing special character
+        "nouppercase1!",    # Missing uppercase
+        "NOLOWERCASE1!",    # Missing lowercase
+        "NoDigitsHere!!",   # Missing digit
+        "       !",         # Only spaces and special
+        123456789,          # Not a string
+    ]
+
+    for sample in test_samples:
+        valid = validate_password(sample)
+        print(f"Sample: {repr(sample):<18} | Valid: {valid}")

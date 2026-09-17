@@ -1,0 +1,39 @@
+import re
+from collections import Counter
+
+def word_frequency(text):
+    """
+    Compute word frequency distribution from input text.
+
+    :param text: The text to process.
+    :type text: str
+    :return: Word frequencies sorted by count (desc) and word (asc).
+    :rtype: dict
+    :raises TypeError: If text is not a string.
+    """
+    if not isinstance(text, str):
+        raise TypeError('Input text must be a string')
+
+    pattern = r"[a-zA-Z']+"
+    potential_words = re.findall(pattern, text.lower())
+
+    cleaned_words = []
+    for word in potential_words:
+        processed = word.strip("'")
+        if processed:
+            cleaned_words.append(processed)
+
+    word_counts = Counter(cleaned_words)
+    sorted_word_counts = dict(
+        sorted(word_counts.items(), key=lambda item: (-item[1], item[0]))
+    )
+
+    return sorted_word_counts
+
+if __name__ == "__main__":
+    sample_input = "The quick brown fox jumps over the lazy dog. The dog barks!"
+    output = word_frequency(sample_input)
+    for word, freq in output.items():
+        print(f"{word}: {freq}")
+
+    print(word_frequency(""))

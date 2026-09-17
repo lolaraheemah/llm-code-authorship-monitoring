@@ -1,0 +1,63 @@
+import math
+from collections import Counter
+
+def solve(data):
+    """Compute descriptive statistics for a sequence of numbers.
+
+    Args:
+        data: A non-empty sequence of numeric values.
+
+    Returns:
+        dict: A dictionary with keys: count, sum, mean, median, mode, variance,
+              std_dev, min, max, range.
+
+    Raises:
+        ValueError: If the input sequence is empty.
+    """
+    if len(data) == 0:
+        raise ValueError("Input sequence must not be empty.")
+
+    ordered_data = sorted(data)
+    num_elements = len(ordered_data)
+    sum_total = sum(ordered_data)
+    mean_val = sum_total / num_elements
+
+    # Median calculation
+    mid = num_elements // 2
+    if num_elements % 2 == 1:
+        median_val = ordered_data[mid]
+    else:
+        median_val = (ordered_data[mid - 1] + ordered_data[mid]) / 2
+
+    # Mode calculation
+    freq_dist = Counter(ordered_data)
+    max_occurrences = max(freq_dist.values())
+    modes = sorted(
+        [num for num, count in freq_dist.items() if count == max_occurrences]
+    ) if max_occurrences > 1 else []
+
+    # Variance and standard deviation
+    variance_val = sum((x - mean_val) ** 2 for x in ordered_data) / num_elements
+    std_dev_val = math.sqrt(variance_val)
+
+    min_val = ordered_data[0]
+    max_val = ordered_data[-1]
+
+    return {
+        "count": num_elements,
+        "sum": sum_total,
+        "mean": mean_val,
+        "median": median_val,
+        "mode": modes,
+        "variance": variance_val,
+        "std_dev": std_dev_val,
+        "min": min_val,
+        "max": max_val,
+        "range": max_val - min_val,
+    }
+
+if __name__ == "__main__":
+    sample_input = [2, 4, 4, 6, 8]
+    statistics = solve(sample_input)
+    for stat, val in statistics.items():
+        print(f"{stat}: {val}")

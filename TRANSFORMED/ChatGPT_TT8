@@ -1,0 +1,41 @@
+import re
+
+def verify_email(email_str):
+    """Verify whether an email address has a valid basic format.
+
+    Returns:
+        bool: True if valid, False otherwise.
+    """
+    if not isinstance(email_str, str):
+        return False
+
+    email_str = email_str.strip()
+
+    if len(email_str) > 254:
+        return False
+
+    regex_pattern = (
+        r"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+"
+        r"@[A-Za-z0-9-]+"
+        r"(?:\.[A-Za-z0-9-]+)+$"
+    )
+
+    if not re.fullmatch(regex_pattern, email_str):
+        return False
+
+    local_part, domain_part = email_str.rsplit("@", 1)
+
+    # Local part: no leading/trailing/consecutive dots
+    if local_part.startswith(".") or local_part.endswith(".") or ".." in local_part:
+        return False
+
+    # Domain labels: no leading/trailing hyphens
+    domain_labels = domain_part.split(".")
+    if any(label.startswith("-") or label.endswith("-") for label in domain_labels):
+        return False
+
+    return True
+
+# Example
+email = "example@gmail.com"
+print(verify_email(email))  # True

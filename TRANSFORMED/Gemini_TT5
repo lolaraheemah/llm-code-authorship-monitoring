@@ -1,0 +1,35 @@
+def is_prime(n: int) -> bool:
+    """Check if a number is prime.
+
+    Args:
+        n: The integer to evaluate.
+
+    Returns:
+        bool: True if prime, False otherwise.
+        Returns False for numbers less than 2.
+    """
+    if not isinstance(n, int):
+        raise TypeError("The input must be an integer.")
+
+    if n < 2:
+        return False
+    if n in (2, 3):
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+
+    # Check divisibility for potential factors
+    candidate = 5
+    while candidate * candidate <= n:
+        if n % candidate == 0 or n % (candidate + 2) == 0:
+            return False
+        candidate += 6
+
+    return True
+
+if __name__ == "__main__":
+    test_numbers = [-5, 0, 1, 2, 3, 4, 17, 25, 97, 100]
+
+    print("Prime Number Check Results:")
+    for num in test_numbers:
+        print(f"{num:>3} -> {is_prime(num)}")

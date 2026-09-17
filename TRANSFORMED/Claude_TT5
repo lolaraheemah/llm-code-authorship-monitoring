@@ -1,0 +1,50 @@
+def is_prime(number: int) -> bool:
+    """Determines whether the given integer is a prime number.
+
+    Args:
+        number: The integer to check for primality.
+
+    Returns:
+        bool: True if the number is prime, False otherwise.
+
+    Raises:
+        TypeError: If the input is not an integer.
+    """
+    if not isinstance(number, int):
+        raise TypeError("The input must be an integer")
+    if number < 2:
+        return False
+    if number in {2, 3}:
+        return True
+    if number % 2 == 0 or number % 3 == 0:
+        return False
+    candidate = 5
+    while candidate * candidate <= number:
+        if number % candidate == 0 or number % (candidate + 2) == 0:
+            return False
+        candidate += 6
+    return True
+
+def primes_up_to(max_limit: int) -> list:
+    """Generates a list of prime numbers up to a specified limit.
+
+    Args:
+        max_limit: The upper bound for prime number generation.
+
+    Returns:
+        list: A list of prime numbers from 2 up to and including max_limit.
+    """
+    if max_limit < 2:
+        return []
+    is_prime_flag = [True] * (max_limit + 1)
+    is_prime_flag[0] = is_prime_flag[1] = False
+    for current in range(2, int(max_limit ** 0.5) + 1):
+        if is_prime_flag[current]:
+            for multiple in range(current * current, max_limit + 1, current):
+                is_prime_flag[multiple] = False
+    return [num for num, flag in enumerate(is_prime_flag) if flag]
+
+if __name__ == "__main__":
+    print(is_prime(17))          # True
+    print(is_prime(18))          # False
+    print(primes_up_to(30))      # [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]

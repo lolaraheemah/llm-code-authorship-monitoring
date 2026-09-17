@@ -1,0 +1,40 @@
+def is_palindrome(s) -> bool:
+    """Determine if the input is a palindrome.
+
+    Ignores case and non-alphanumeric characters during comparison.
+
+    Args:
+        s: Input value of any type to be checked.
+
+    Returns:
+        bool: True if the input is a palindrome, False otherwise.
+    """
+    # Convert input to string to handle non-string types
+    input_str = str(s)
+
+    # Build a list of lowercase alphanumeric characters
+    normalized = []
+    for character in input_str:
+        if character.isalnum():
+            normalized.append(character.lower())
+
+    # Join the list into a string for comparison
+    normalized_str = ''.join(normalized)
+
+    # Check if the normalized string is equal to its reverse
+    return normalized_str == normalized_str[::-1]
+
+if __name__ == "__main__":
+    test_cases = [
+        "A man, a plan, a canal: Panama",
+        "racecar",
+        "hello",
+        "",
+        "12321",
+        12321,
+        "No 'x' in Nixon"
+    ]
+
+    for test in test_cases:
+        result = is_palindrome(test)
+        print(f"{repr(test):<35} -> {result}")
