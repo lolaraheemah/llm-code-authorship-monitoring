@@ -1,0 +1,19 @@
+You are evaluating the likely source of a Python program.
+
+Three possible source models are provided below.
+
+A: [MODEL]
+B: [MODEL]
+C: [MODEL]
+
+Code:
+
+[INSERT CODE HERE]
+
+Which candidate is the most likely source?
+
+Return exactly:
+
+Prediction: A/B/C
+Confidence: 0-100
+Evidence: one or two brief observations
